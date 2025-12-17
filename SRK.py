@@ -1,4 +1,5 @@
 import math
+from unit import *
 from component import Component
 def solve_cubic_srk(A, B):
     """
@@ -76,7 +77,7 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
         
         Tr = temperature / component_list[i].tc
         w = component_list[i].acentric_factor
-        Pr = pressure / component_list[i].pc
+        Pr = kpa_to_bar(pressure) / component_list[i].pc
         m = 0.48 + 1.574 * w - 0.176 * w**2
         alpha = (1 + m * (1 - math.sqrt(Tr)))**2
         
