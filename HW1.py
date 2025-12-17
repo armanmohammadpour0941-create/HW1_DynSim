@@ -1,6 +1,9 @@
 from component import Component
 from VLE import *
 from Bubble_T_Flash import BubbleTFlash
+import numpy as np
+from scipy.optimize import fsolve
+from fsolve import equations
 
 methanole = Component("methanole", 8.22, 513.4, 0.564, 
                       [16.5785, 3638.27, 239.5], 32.04, 
@@ -47,7 +50,7 @@ b_ij = [[0, 0, 0, -8.408, 0],
 max_iter = 100
 tol = 0.0002
 
-vapor_fraction = 0.001
+vapor_fraction = 0.15
 
 x0 = [0.27, 0.16, 0.22, 0.17, 0.18]
 y0 = [0.0086, 0.0007, 0.04, 0.927, 0.0237]
@@ -55,3 +58,10 @@ vle = VLESystem(component_list, z, a_ij, b_ij, inlet_flow)
 flash_calculator = BubbleTFlash(vle, vapor_fraction, temperature )
 
 flash_calculator.flash_calculation()
+vars = x0 + y0
+
+solution = fsolve(equations, vars, args = (flash_calculator))
+
+print(f"x : {solution[:5]} \ny : {solution[5:]}")
+
+

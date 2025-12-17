@@ -22,6 +22,9 @@ def calc_henry_cons(component_list: list[Component],composition: list[float],
     
     Vc.pop(3)
     x = composition.copy()
+    x_new = [x[i] for i in range(len(x))]
+    
+    x = x_new
     x.pop(3)
     
     for i in range(len(Vc)) :
