@@ -12,10 +12,10 @@ def calc_henry_cons(component_list: list[Component],composition: list[float],
     for j in range(len(component_list)) :
         if i == j :
             continue
-        A = a_ij[i][j]
-        B = a_ij[j][i]
-        C = b_ij[i][j]
-        D = b_ij[j][i]
+        A = a_ij[j][i]
+        B = a_ij[i][j]
+        C = b_ij[j][i]
+        D = b_ij[i][j]
         ln_henry_ij =  A + (B / temprature) + C * math.log(temprature) + D * temprature 
         hery_cons.append(ln_henry_ij)
         sum += composition[j] * Vc[j]**(2/3)

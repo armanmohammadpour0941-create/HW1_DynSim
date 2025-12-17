@@ -47,10 +47,10 @@ b_ij = [[0, 0, 0, -8.408, 0],
 max_iter = 100
 tol = 0.0002
 
-vapor_fraction = 0
+vapor_fraction = 0.001
 
-x0 = [0.2, 0.2, 0.2, 0.2, 0.2]
-y0 = [0.2, 0.2, 0.2, 0.2, 0.2]
+x0 = [0.27, 0.16, 0.22, 0.17, 0.18]
+y0 = [0.0086, 0.0007, 0.04, 0.927, 0.0237]
 vle = VLESystem(component_list, z, a_ij, b_ij, inlet_flow)
 flash_calculator = BubbleTFlash(vle, vapor_fraction, temperature )
 

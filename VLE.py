@@ -61,7 +61,7 @@ class VLESystem :
         k = []
         pressure = self.bubble_P(temperature)
         gamma = self.liquid_phase.activity_coeff(liquid_composition, temperature)
-        phi = self.vapor_phase.fugacity_coeff(vapor_composition, pressure, temperature)
+        phi = [1, 1, 1, 1, 1] #self.vapor_phase.fugacity_coeff(vapor_composition, pressure, temperature)
         henry_cons = calc_henry_cons(self.component_list, liquid_composition, 
                                     temperature, self.liquid_phase.a, 
                                     self.liquid_phase.b, 3)

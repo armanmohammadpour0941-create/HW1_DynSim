@@ -40,7 +40,7 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
     A_is = []
     B = 0
     A = 0
-    betta = 0
+    Betta = 0
     qbetta = 0
     A_ij = [ [0 for j in range(len(component_list))] for i in range(len(component_list))]
     for component in component_list :
@@ -58,7 +58,7 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
         i = component_list.index(component)
         betta_i = Omega * Tr / Pr
         B += composition[i] * B_i
-        betta += composition[i] * betta_i
+        Betta += composition[i] * betta_i
         
         q = Psi * alpha / (Omega * Tr)
         qbetta += composition[i] * q*betta_i
@@ -76,7 +76,7 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
         
         A += sum
     
-    Z_V = solve_cubic_srk(qbetta, betta)
+    Z_V = solve_cubic_srk(qbetta, Betta)
 
     for i in range(len(component_list)) :
         A_i = A_is[i]
@@ -94,7 +94,7 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
         
         q_bar = q * (1 + (A_i / A) - (B_i / B))
         
-        ln_phi_i = ((B_i / B) * (Z_V - 1)) - math.log(Z_V - betta) - q_bar * I
+        ln_phi_i = ((B_i / B) * (Z_V - 1)) - math.log(abs(Z_V - betta)) - q_bar * I
         phi_i = math.exp(ln_phi_i)
         phi.append(phi_i)
     return phi
