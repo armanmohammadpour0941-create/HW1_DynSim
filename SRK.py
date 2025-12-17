@@ -40,10 +40,12 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
     A_is = []
     B = 0
     A = 0
+    betta = 0
+    qbetta = 0
     A_ij = [ [0 for j in range(len(component_list))] for i in range(len(component_list))]
     for component in component_list :
         Tr = temperature / component.tc
-                
+        Pr = kpa_to_bar(pressure) / component.pc       
         w = component.acentric_factor
         m = 0.48 + 1.574 * w - 0.176 * w**2
         alpha = (1 + m * (1 - math.sqrt(Tr)))**2
@@ -54,7 +56,12 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
         B_i = Omega * R * component.tc / component.pc 
         B_is.append(B_i)
         i = component_list.index(component)
+        betta_i = Omega * Tr / Pr
         B += composition[i] * B_i
+        betta += composition[i] * betta_i
+        
+        q = Psi * alpha / (Omega * Tr)
+        qbetta += composition[i] * q*betta_i
         
         sum = 0
         for j in range(len(component_list)) :
@@ -69,7 +76,7 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
         
         A += sum
     
-    Z_V = solve_cubic_srk(A, B)
+    Z_V = solve_cubic_srk(qbetta, betta)
 
     for i in range(len(component_list)) :
         A_i = A_is[i]

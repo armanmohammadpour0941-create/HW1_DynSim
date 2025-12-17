@@ -18,13 +18,14 @@ def calc_henry_cons(component_list: list[Component],composition: list[float],
         D = b_ij[j][i]
         ln_henry_ij =  A + (B / temprature) + C * math.log(temprature) + D * temprature 
         hery_cons.append(ln_henry_ij)
-        sum += composition[i] * Vc[i]**(2/3)
+        sum += composition[j] * Vc[j]**(2/3)
     
     Vc.pop(3)
-    composition.pop(3)
+    x = composition.copy()
+    x.pop(3)
     
     for i in range(len(Vc)) :
-        sum_len_H += ((composition[i] * Vc[i]**(2/3)) / sum) * hery_cons[i]
+        sum_len_H += ((x[i] * Vc[i]**(2/3)) / sum) * hery_cons[i]
         
     return math.exp(sum_len_H)      # Kpa
 

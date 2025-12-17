@@ -50,9 +50,7 @@ class VLESystem :
                                             self.liquid_phase.b, i)
                 P_i_sat = henry_cons
             else :
-                gamma_i = self.liquid_phase.activity_coeff(self.composition, temperature)[i]
-                p_i_sat = component.p_sat(temperature)
-                P_i_sat = gamma_i * p_i_sat
+                P_i_sat = component.p_sat(temperature)
             P += self.composition[i] * P_i_sat
         return P
 
@@ -81,7 +79,7 @@ class VLESystem :
                 k_i = k_value_by_henry(henry_cons, phi[i], pressure)
                 k.append(k_i)
             else :
-                k_i = k_value_by_p_sat(gamma[i], p_sat[i if i<3 else i-1], phi[i], pressure)
+                k_i = k_value_by_p_sat(gamma[i if i<3 else i-1], p_sat[i if i<3 else i-1], phi[i], pressure)
                 k.append(k_i)
         return k
                 
