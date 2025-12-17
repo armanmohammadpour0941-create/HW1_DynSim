@@ -1,5 +1,6 @@
 from component import Component
-
+from VLE import *
+from Bubble_T_Flash import BubbleTFlash
 
 methanole = Component("methanole", 8.22, 513.4, 0.564, 
                       [16.5785, 3638.27, 239.5], 32.04, 
@@ -26,7 +27,7 @@ component_list = [methanole, water, n_hexane, co2, acetone]
 # overall feed composition (mole fractions)
 z = [0.25, 0.15, 0.2, 0.25, 0.15]
 
-temperature = 300 # inital guess
+temperature = 288.15 # inital guess
 
 inlet_flow = 10 #kmol/h
 
@@ -45,3 +46,12 @@ b_ij = [[0, 0, 0, -8.408, 0],
 
 max_iter = 100
 tol = 0.0002
+
+vapor_fraction = 0
+
+x0 = [0.2, 0.2, 0.2, 0.2, 0.2]
+y0 = [0.2, 0.2, 0.2, 0.2, 0.2]
+vle = VLESystem(component_list, z, a_ij, b_ij, inlet_flow)
+flash_calculator = BubbleTFlash(vle, vapor_fraction, temperature )
+
+flash_calculator.flash_calculation(x0, y0)
