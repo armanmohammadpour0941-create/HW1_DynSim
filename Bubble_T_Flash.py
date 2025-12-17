@@ -18,6 +18,8 @@ class BubbleTFlash :
         y = [(self.vle_system.composition[i] * k[i]) /(1 + self.vapor_fraction*(k[i] - 1)) for i in range(len(k))]
         x = [y[i] / k[i] for i in range(len(k))]
         
+        print(f" pressur : {pressure} \n y : {y} \n x : {x} \n k : {k}")
+        
         
         
         
