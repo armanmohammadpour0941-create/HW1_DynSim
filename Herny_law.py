@@ -3,7 +3,7 @@ from component import Component
 
 
 def calc_henry_cons(component_list: list[Component],composition: list[float], 
-                    temprature , a_ij , b_ij, component_index) :
+                    temprature , a_ij , b_ij, component_index) -> float:
     hery_cons = []
     i = component_index
     Vc = [0.127, 5.71e-2, 0.368, 0, 0.209]

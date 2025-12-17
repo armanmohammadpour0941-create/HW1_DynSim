@@ -30,7 +30,7 @@ def solve_cubic_srk(A, B):
 
 def calc_fugacity_coeff(component_list: list[Component], composition: list[float],  
                         pressure, temperature):
-    
+    phi = []
     R = 83.14472  # cm3·bar/(K·mol)
     # SRK Constants
     Omega = 0.08664 # b*Pc / (R*Tc)
@@ -69,9 +69,7 @@ def calc_fugacity_coeff(component_list: list[Component], composition: list[float
         A += sum
     
     Z_V = solve_cubic_srk(A, B)
-    
-    phi = []
-    
+
     for i in range(len(component_list)) :
         A_i = A_is[i]
         B_i = B_is[i]
