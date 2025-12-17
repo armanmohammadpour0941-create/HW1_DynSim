@@ -56,8 +56,7 @@ class VLESystem :
 
 
 
-    def calculate_k_value(self, liquid_composition: list[float], 
-                          vapor_composition: list[float], temperature) :
+    def calculate_k_value(self, liquid_composition: list[float], temperature) :
         k = []
         pressure = self.bubble_P(temperature)
         gamma = self.liquid_phase.activity_coeff(liquid_composition, temperature)
