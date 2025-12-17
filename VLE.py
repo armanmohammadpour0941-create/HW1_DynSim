@@ -39,10 +39,29 @@ class VLESystem :
         self.vapor_phase = VaporPhase(component_list)
         self.composition = composition
         self.inlet_flow = inlet_flow
+        
+    def bubble_P(self, temperature) :
+        P = 0
+        for i in range(len(self.component_list)) :
+            component = self.component_list[i]
+            if component.name == "CO2" :
+                henry_cons = calc_henry_cons(self.component_list, self.composition, 
+                                            temperature, self.liquid_phase.a, 
+                                            self.liquid_phase.b, i)
+                P_i_sat = henry_cons
+            else :
+                gamma_i = self.liquid_phase.activity_coeff(self.composition, temperature)[i]
+                p_i_sat = component.p_sat(temperature)
+                P_i_sat = gamma_i * p_i_sat
+            P += self.composition[i] * P_i_sat
+        return P
+
+
 
     def calculate_k_value(self, liquid_composition: list[float], 
-                          vapor_composition: list[float], pressure, temperature) :
+                          vapor_composition: list[float], temperature) :
         k = []
+        pressure = self.bubble_P(temperature)
         gamma = self.liquid_phase.activity_coeff(liquid_composition, temperature)
         phi = self.vapor_phase.fugacity_coeff(vapor_composition, pressure, temperature)
         henry_cons = calc_henry_cons(self.component_list, liquid_composition, 

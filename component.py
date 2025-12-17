@@ -1,4 +1,5 @@
 from Antoin_law import calc_p_sat
+from unit import kelvin_to_celciuos
 
 
 class Component :
@@ -17,7 +18,7 @@ class Component :
         a = self.antoine_coeff[0]
         b = self.antoine_coeff[1]
         c = self.antoine_coeff[2]
-        return calc_p_sat(a, b, c, t)
+        return calc_p_sat(a, b, c, kelvin_to_celciuos(t))
     
         
 
