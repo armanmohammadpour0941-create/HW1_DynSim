@@ -1,13 +1,13 @@
 import math
 import copy
-import numpy as np
+
 def calc_activity_coeff(x : list[float] , a_ij , b_ij, temperature) :
     
-    alpha = [[0, 0.3, 0.424, 0, 0.3],
-             [0.3, 0, 0.3, 0, 0.586],
-             [0.424, 0.3, 0, 0, 0.292],
+    alpha = [[0, 0.3, 0.3, 0, 0.3],
+             [0.3, 0, 0.3, 0, 0.3],
+             [0.3, 0.3, 0, 0, 0.3],
              [0, 0, 0, 0, 0],
-             [0.3, 0.586, 0.292, 0, 0]]
+             [0.3, 0.3, 0.3, 0, 0]]
     x = x.copy()
     a_ij = copy.deepcopy(a_ij)
     b_ij = copy.deepcopy(b_ij)
